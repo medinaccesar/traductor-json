@@ -19,7 +19,7 @@ def google_translate(texto, target_lang, source_lang ):
     res = requests.get(url, headers=headers)
     soup = BeautifulSoup(res.text, 'html.parser')
     translation = soup.find('div', class_='result-container').text.strip()
-    
+    print(translation)
     return translation
 
 def procesar(fichero_fuente, fichero_destino, target_lang='es', source_lang='en' ):
@@ -29,31 +29,31 @@ def procesar(fichero_fuente, fichero_destino, target_lang='es', source_lang='en'
     
     estructura_traducida = {}
     
-    for key, value in data.items():
-        if isinstance(value, str):  # Si es una cadena simple
-            translated_value = traducir_texto(value,target_lang,source_lang)
-            estructura_traducida[key] = translated_value
-        elif isinstance(value, dict):  # Si es un diccionario
-            translated_sub_dict = procesar_estructura_anidada(value,target_lang,source_lang)
-            estructura_traducida[key] = translated_sub_dict
+    for clave, valor in data.items():
+        if isinstance(valor, str):  # Si es una cadena simple
+            valor_traducido = traducir_texto(valor,target_lang,source_lang)
+            estructura_traducida[clave] = valor_traducido
+        elif isinstance(valor, dict):  # Si es un diccionario
+            parte_traducida = procesar_estructura_anidada(valor,target_lang,source_lang)
+            estructura_traducida[clave] = parte_traducida
     
     with open(fichero_destino, 'w') as f:
-        json.dump(estructura_traducida, f, indent=2)
+        json.dump(estructura_traducida, f, indent=2, ensure_ascii=False)
     
     print(f"Se ha completado la traducción. Archivo de salida: {fichero_destino}")
     
 def procesar_estructura_anidada(estructura, target_lang, source_lang):
     estructura_traducida = {}
-    for key, value in estructura.items():
-        if isinstance(value, str):
-            estructura_traducida[key] = traducir_texto(value, target_lang,source_lang)
-        elif isinstance(value, dict):
-            estructura_traducida[key] = procesar_estructura_anidada(value,target_lang,source_lang)
-        elif isinstance(value, list):
-            estructura_traducida[key] = [traducir_texto(item,target_lang,source_lang) for item in value]
+    for clave, valor in estructura.items():
+        if isinstance(valor, str):
+            estructura_traducida[clave] = traducir_texto(valor, target_lang,source_lang)
+        elif isinstance(valor, dict):
+            estructura_traducida[clave] = procesar_estructura_anidada(valor,target_lang,source_lang)
+        elif isinstance(valor, list):
+            estructura_traducida[clave] = [traducir_texto(item,target_lang,source_lang) for item in valor]
     return estructura_traducida   
 
-
+#TODO: permitir procesar argumentos
 if __name__ == "__main__":
     
     fichero_fuente = './en.json' 
