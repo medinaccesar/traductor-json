@@ -4,7 +4,7 @@ class BarraProgresoConsola():
 
     def __init__(self, total):
         self._total = total
-        self._completado = 10  
+        self._completado = 0  
         self._progreso = _('Progreso')
         self._completo = _('Completo')  
         self._zoom = 0.4

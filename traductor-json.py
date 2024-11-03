@@ -78,7 +78,8 @@ class Principal():
                 nombre_archivo, nombre_archivo_traducido, source_lang, target_lang = args.traducir                
                 self._traductor.procesar(
                     nombre_archivo, nombre_archivo_traducido, source_lang,target_lang, barra_progreso.dibuja_bp)
-                print(_('El archivo se ha traducido correctamente.'),'\n')
+              
+                print('\n',f"Se ha completado la traducción. Archivo de salida: {nombre_archivo_traducido}")
             else:
                 print(_('No se especificó ninguna opción'))   
 
