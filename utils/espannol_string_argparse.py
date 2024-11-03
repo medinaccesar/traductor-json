@@ -12,6 +12,7 @@ def custom_gettext(s):
   current_dict = {
               'usage: ': _('Uso: '),
               'optional arguments': _('argumentos opcionales'),
+              'options': _('opciones'),
               'show this help message and exit': _('muestra este mensaje de ayuda y sale'),
               'positional arguments': _('argumentos posicionales'),
               'the following arguments are required: %s': _('los siguientes argumentos son requeridos: %s'),

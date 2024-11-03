@@ -16,8 +16,13 @@ class Traductor(metaclass=ABCMeta):
             data = json.load(f)
         
         estructura_traducida = {}
-        
+      
+        long = len(data.items())
+        incremento = 100 / long
+                
         for clave, valor in data.items():
+            if(callback):
+                callback(incremento) 
             if isinstance(valor, str):  # Si es una cadena simple
                 valor_traducido = self.traducir_texto(valor,source_lang,target_lang)
                 estructura_traducida[clave] = valor_traducido
@@ -26,9 +31,8 @@ class Traductor(metaclass=ABCMeta):
                 estructura_traducida[clave] = parte_traducida
     
         with open(fichero_destino, 'w') as f:
-            json.dump(estructura_traducida, f, indent=2, ensure_ascii=False)
-        
-        #print(f"Se ha completado la traducción. Archivo de salida: {fichero_destino}")
+            json.dump(estructura_traducida, f, indent=2, ensure_ascii=False)       
+      
     
     def procesar_estructura_anidada(self,estructura, source_lang, target_lang):
         estructura_traducida = {}
