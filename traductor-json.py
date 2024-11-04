@@ -22,11 +22,11 @@ class Principal():
             description=conf.NOMBRE_AP+" "+str(conf.VERSION))  # formatter_class=CustomHelpFormatter
         group = parser.add_mutually_exclusive_group()
         group.add_argument('-t', '--traducir', nargs=4,
-                           metavar=(_('ARCHIVO'), _('ARCHIVO_TRADUCIDO'), _('IDIOMA_ORIGEN'),_('IDIOMA_DESTINO')), help='Traducir archivo')
+                           metavar=(_('ARCHIVO'), _('ARCHIVO_TRADUCIDO'), _('IDIOMA_ORIGEN'),_('IDIOMA_DESTINO')), help=_('Traduce el archivo al idioma especificado'))
         group.add_argument(
             '-m', '--motor', action='store_true', help=_('Selecciona el motor de traducción por defecto'))
         group.add_argument(
-            '-i', '--info', action='store_true', help=_('Muesta las opciones establecidas'))
+            '-i', '--info', action='store_true', help=_('Muestra información con las opciones establecidas'))
         parser.add_argument('--version', action='version', version='%(prog)s ' +
                             conf.VERSION, help=_('Muestra la versión del programa'))
 
@@ -46,7 +46,7 @@ class Principal():
     def _establecer_motor_traduccion(self):
         
         motor = input('\n'+
-            _('¿Elija el motor de traducción? (Google/DeepL) o (g/d): '))        
+            _('Elija el motor de traducción (Google/DeepL) o (g/d)')+':')        
   
         if  motor == 'g': 
             motor = conf.MOTORES.get('google')           
@@ -63,15 +63,15 @@ class Principal():
        
             if args.motor is not None and args.motor is not False:   
                 motor = self._establecer_motor_traduccion() 
-                print(_('El motor de traducción por defecto es: '), motor, '\n')
+                print(_('El motor de traducción por defecto es')+': ', motor, '\n')
                
             elif args.info is not None and args.info is not False:               
                 if not self._fichero.existe_archivo_env():
                     self._fichero.crear_archivo_env()               
                 load_dotenv()      
-                print(_('Opciones establecidas:'))              
-                print('IDIOMA: ', os.getenv('IDIOMA'))
-                print('MOTOR: ',os.getenv('MOTOR'),'\n')     
+                print(_('Opciones establecidas')+':')              
+                print(_('Idioma de la aplicación')+':', os.getenv('IDIOMA'))
+                print(_('Motor de traducción')+':',os.getenv('MOTOR'),'\n')     
             
             elif args.traducir is not None:
                 barra_progreso = BarraProgresoConsola(100)
@@ -79,7 +79,7 @@ class Principal():
                 self._traductor.procesar(
                     nombre_archivo, nombre_archivo_traducido, source_lang,target_lang, barra_progreso.dibuja_bp)
               
-                print('\n',f"Se ha completado la traducción. Archivo de salida: {nombre_archivo_traducido}")
+                print('\n',f_("Se ha completado la traducción. Archivo de salida: {nombre_archivo_traducido}"))
             else:
                 print(_('No se especificó ninguna opción'))   
 
