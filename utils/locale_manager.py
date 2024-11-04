@@ -12,7 +12,7 @@ if lang is None:
     lang, encoding = locale.getlocale()
 
 # Carga los archivos de traducción para el idioma configurado
-t = gettext.translation('programa', localedir, [lang], fallback=True)
+t = gettext.translation(lang, localedir, [lang], fallback=True)
 _ = t.gettext
 
 def p(cadena):

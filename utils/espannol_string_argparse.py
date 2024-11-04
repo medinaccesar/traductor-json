@@ -5,7 +5,7 @@ load_dotenv()
 localedir = 'locale'
 lang = os.getenv('IDIOMA', 'es')
 
-t = gettext.translation('programa', localedir, [lang], fallback=True)
+t = gettext.translation(lang, localedir, [lang], fallback=True)
 _ = t.gettext
 
 def custom_gettext(s):  
