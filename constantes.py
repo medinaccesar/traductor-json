@@ -4,8 +4,8 @@ class Configuracion:
 
     __slots__ = ()
     NOMBRE_AP = 'traductor-js'
-    DESCRIPCION_AP = ' Traduce archivos archivos de traducción «json».'
-    VERSION = '2.0.0'
+    DESCRIPCION_AP = ' Traduce archivos de traducción «json».'
+    VERSION = '2.0.1'
     CREDITOS = 'César Medina'
     
     DIR_EXE = os.getcwd() # directorio desde donde se ejecuta 

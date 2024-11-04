@@ -14,13 +14,14 @@ Traduce ficheros de idiomas de formato «json».
 ```
 Uso: traductor-json.py [-h] [-t ARCHIVO ARCHIVO_TRADUCIDO IDIOMA_ORIGEN IDIOMA_DESTINO | -m | -i] [--version]
 
-traductor-js 2.0.0
+traductor-js 2.0.1
 
 opciones:
   -h, --help            muestra este mensaje de ayuda y sale
-  -t ARCHIVO ARCHIVO_TRADUCIDO IDIOMA_ORIGEN IDIOMA_DESTINO  Traducir archivo
+  -t ARCHIVO ARCHIVO_TRADUCIDO IDIOMA_ORIGEN IDIOMA_DESTINO, --traducir ARCHIVO ARCHIVO_TRADUCIDO IDIOMA_ORIGEN IDIOMA_DESTINO
+                        Traduce el archivo al idioma especificado
   -m, --motor           Selecciona el motor de traducción por defecto
-  -i, --info            Muesta las opciones establecidas
+  -i, --info            Muestra información con las opciones establecidas
   --version             Muestra la versión del programa
 ```
 Por ejemplo:
