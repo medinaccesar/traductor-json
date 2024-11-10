@@ -3,6 +3,7 @@ from service.fichero_service import Fichero
 from service.traductor_service import Traductor
 from service.motores.google_translate import TraductorGoogle
 from service.motores.deepl_translate import TraductorDeepl
+from service.motores.libre_translate import TraductorLibret
 from utils.barra_progreso import BarraProgresoConsola
 from utils.espannol_string_argparse import *
 import argparse
@@ -40,7 +41,8 @@ class Principal():
 
         traductores = {
             conf.MOTORES.get('google'): lambda: TraductorGoogle(),
-            conf.MOTORES.get('deepl'): lambda: TraductorDeepl()
+            conf.MOTORES.get('deepl'): lambda: TraductorDeepl(),
+            conf.MOTORES.get('libre'): lambda: TraductorLibret()
         }
 
         return traductores.get(motor, lambda: TraductorGoogle())()
@@ -48,9 +50,9 @@ class Principal():
     def _establecer_motor_traduccion(self):
         
         motor = input('\n'+
-            _('Elija el motor de traducción (Google/DeepL) o (g/d)')+':')        
+            _('Elija el motor de traducción (Google/DeepL/libre) o (g/d/l)')+':')        
 
-        motor = MOTORES.get(motor.lower(), conf.MOTORES.get(conf.MOTOR_DEFECTO))        
+        motor = conf.MOTORES.get(motor.lower(), conf.MOTORES.get(conf.MOTOR_DEFECTO))        
         self._fichero.establecer_motor_traduccion_defecto(motor)    
         return motor
         
