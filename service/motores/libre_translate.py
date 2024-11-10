@@ -34,18 +34,4 @@ class TraductorLibret(Traductor):
         except requests.exceptions.RequestException as e:
             print(f"Fallo al realizar la solicitud: {e}")
             exit() 
-
-
-
-       
-        # response = requests.post(url, json=params)
-        
-        # if response.status_code == 200:
-        #     translation = response.json()            
-        #     return translation['translatedText']
-        # elif response.status_code == 400 or response.status_code == 403 or response.status_code == 429:
-        #     translation = response.json()  
-        #     print('Error:',translation['error'])       
-        #     exit() 
-        # else:             
-        #     return ''
+            
