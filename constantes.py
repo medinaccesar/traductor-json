@@ -22,7 +22,10 @@ class Configuracion:
     # MOTORES DE TRADUCCIÓN
     MOTORES = {
         'google': 'Google',
-        'deepl': 'DeepL'
+        'g': 'Google',  
+
+        'deepl': 'DeepL',
+        'd': 'DeepL',
     }
     
   

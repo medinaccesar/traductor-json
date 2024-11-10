@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-04 20:45+0100\n"
-"PO-Revision-Date: 2024-11-04 20:46+0100\n"
+"POT-Creation-Date: 2024-11-10 23:45+0100\n"
+"PO-Revision-Date: 2024-11-10 23:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -18,61 +18,66 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: traductor-json.py:25
+#: traductor-json.py:26
 msgid "ARCHIVO"
 msgstr "FILE"
 
-#: traductor-json.py:25
+#: traductor-json.py:26
 msgid "ARCHIVO_TRADUCIDO"
 msgstr "TRANSLATED_FILE"
 
-#: traductor-json.py:25
+#: traductor-json.py:26
 msgid "IDIOMA_ORIGEN"
 msgstr "SOURCE_LANG"
 
-#: traductor-json.py:25
+#: traductor-json.py:26
 msgid "IDIOMA_DESTINO"
 msgstr "TARGET_LANG"
 
-#: traductor-json.py:25
+#: traductor-json.py:26
 msgid "Traduce el archivo al idioma especificado"
 msgstr "Translates the file to the specified language"
 
-#: traductor-json.py:27
+#: traductor-json.py:28
 msgid "Selecciona el motor de traducción por defecto"
 msgstr "Select the default translation engine"
 
-#: traductor-json.py:29
+#: traductor-json.py:30
 msgid "Muestra información con las opciones establecidas"
 msgstr "Displays the options set"
 
-#: traductor-json.py:31
+#: traductor-json.py:32
 msgid "Muestra la versión del programa"
 msgstr "shows the program version"
 
-#: traductor-json.py:49
+#: traductor-json.py:51
 msgid "Elija el motor de traducción (Google/DeepL) o (g/d)"
 msgstr "Choose the translation engine (Google/DeepL) or (g/d)"
 
-#: traductor-json.py:66
+#: traductor-json.py:63
 msgid "El motor de traducción por defecto es"
 msgstr "The default translation engine is"
 
-#: traductor-json.py:72
+#: traductor-json.py:74
+#, python-brace-format
+msgid "Se ha completado la traducción. Archivo de salida: {nombre_archivo_traducido}"
+msgstr "Translation has been completed. Exit File: {nombre_archivo_traducido}"
+
+#: traductor-json.py:76
+msgid "No se especificó ninguna opción"
+msgstr "No option was specified"
+
+#: traductor-json.py:82
 msgid "Opciones establecidas"
 msgstr "Established options"
 
-#: traductor-json.py:73
+#: traductor-json.py:83
 msgid "Idioma de la aplicación"
 msgstr "Application language"
 
-#: traductor-json.py:74
+#: traductor-json.py:84
 msgid "Motor de traducción"
 msgstr "Translation engine"
-
-#: traductor-json.py:84
-msgid "No se especificó ninguna opción"
-msgstr "No option was specified"
 
 #: utils/barra_progreso.py:8
 msgid "Progreso"
