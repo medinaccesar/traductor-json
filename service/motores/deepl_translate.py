@@ -12,5 +12,19 @@ class TraductorDeepl(Traductor):
 
 
     def traducir_texto(self, texto, source_lang, target_lang):   
-        # TODO: Implementar traducción con DeepL 
-        pass
+          
+        url = "https://api-free.deepl.com/v2/translate"
+        params = {
+            "auth_key": self._API_KEY,
+            "text": texto,
+            "target_lang": target_lang,
+            "source_lang": source_lang
+        }
+       
+        response = requests.post(url, data=params)
+        
+        if response.status_code == 200:
+            translation = response.json()
+            return translation['translations'][0]['text']
+        else:           
+            return ''
