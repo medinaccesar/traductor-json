@@ -14,7 +14,7 @@ Traduce ficheros de idiomas de formato «json».
 ```
 Uso: traductor-json.py [-h] [-t ARCHIVO ARCHIVO_TRADUCIDO IDIOMA_ORIGEN IDIOMA_DESTINO | -m | -i] [--version]
 
-traductor-js 2.0.1
+traductor-js 2.1.0
 
 opciones:
   -h, --help            muestra este mensaje de ayuda y sale
