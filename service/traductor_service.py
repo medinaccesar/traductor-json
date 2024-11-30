@@ -7,7 +7,7 @@ class Traductor(metaclass=ABCMeta):
         self._motor = ''
    
     @abstractmethod
-    def traducir_texto(texto, source_lang, target_lang):
+    def traducir_texto(self,texto, source_lang, target_lang):
         pass
    
     def procesar(self,fichero_fuente, fichero_destino, source_lang='en', target_lang='es',  callback = None ):
@@ -45,5 +45,5 @@ class Traductor(metaclass=ABCMeta):
                 estructura_traducida[clave] = [self.traducir_texto(item,source_lang,target_lang) for item in valor]
         return estructura_traducida  
     
-    def getMotor(self):
+    def get_motor(self):
         return self._motor

@@ -11,15 +11,16 @@ from utils.locale_manager import _,p
 from dotenv import load_dotenv
 from constantes import Configuracion as conf
 
-class Principal():
+class Principal:
 
     def __init__(self):              
         self._fichero = Fichero()
         self._traductor = self._crear_traductor()               
         self._procesar_argumentos()
-   
-    def _get_parser(self) -> argparse.ArgumentParser:
-        
+
+    @staticmethod
+    def _get_parser() -> argparse.ArgumentParser:
+
         parser = argparse.ArgumentParser(
             description=conf.NOMBRE_AP+" "+str(conf.VERSION))  # formatter_class=CustomHelpFormatter
         group = parser.add_mutually_exclusive_group()
@@ -33,8 +34,9 @@ class Principal():
                             conf.VERSION, help=_('Muestra la versión del programa'))
 
         return parser
-    
-    def _crear_traductor(self) -> Traductor:       
+
+    @staticmethod
+    def _crear_traductor() -> Traductor:
        
         load_dotenv() 
         motor =  os.getenv('MOTOR', conf.MOTORES.get(conf.MOTOR_DEFECTO))

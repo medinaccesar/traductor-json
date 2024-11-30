@@ -1,6 +1,6 @@
 from utils.locale_manager import _
 
-class BarraProgresoConsola():
+class BarraProgresoConsola:
 
     def __init__(self, total):
         self._total = total
