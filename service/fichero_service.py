@@ -23,10 +23,8 @@ class Fichero():
     
     def crear_archivo_env(self):        
         ruta_env = conf.DIR_ABS+'.env'
-        env_vars = {}
-        env_vars['IDIOMA'] = 'es'        
-        env_vars['MOTOR'] =  conf.MOTORES.get(conf.MOTOR_DEFECTO)           
-        self._escribir_fichero_diccionario(ruta_env,env_vars) 
+        env_vars = {'IDIOMA': 'es', 'MOTOR': conf.MOTORES.get(conf.MOTOR_DEFECTO)}
+        self._escribir_fichero_diccionario(ruta_env,env_vars)
         
     def _escribir_fichero_diccionario(self,ruta,diccionario):
          with open(ruta, 'w') as archivo:
