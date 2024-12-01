@@ -19,17 +19,30 @@ class Configuracion:
     
     MOTOR_DEFECTO = 'google'
     
-    # MOTORES DE TRADUCCIÓN
-    MOTORES = {
-        'google': 'Google',
-        'g': 'Google',  
-
-        'deepl': 'DeepL',
-        'd': 'DeepL',
-
-        'libre': 'LibreT',
-        'l': 'LibreT',
+    # MOTORES DE TRADUCCIÓN  
+    MOTOR_GOOGLE = {
+         'nombre': 'Google', 
     }
-    
+    MOTOR_DEEPL = {
+        'nombre': 'DeepL',        
+        'API_KEY': '',   
+    }
+    MOTOR_LIBRE = {
+        'nombre': 'LibreT',
+        'alternatives': 5,
+        'API_KEY': '',   
+        'URL': '' 
+    }
+
+    MOTORES = {
+        'google': MOTOR_GOOGLE,
+        'g': MOTOR_GOOGLE,  
+
+        'deepl': MOTOR_DEEPL,
+        'd': MOTOR_DEEPL,
+
+        'libre': MOTOR_LIBRE,
+        'l': 'MOTOR_LIBRE',
+    }
   
    

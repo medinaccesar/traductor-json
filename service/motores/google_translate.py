@@ -7,12 +7,13 @@ class TraductorGoogle(Traductor):
 
     def __init__(self):
         super().__init__()
-        self._motor = conf.MOTORES.get('google')
+        self._motor = conf.MOTORES.get('google')['nombre']
+        self._url = 'https://translate.google.com/m?sl={}&tl={}&q={}'
 
 
     def traducir_texto(self, texto, source_lang, target_lang):   
         
-        url = "https://translate.google.com/m?sl={}&tl={}&q={}".format(source_lang,target_lang, texto)
+        url = self._url.format(source_lang,target_lang, texto)
         
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"

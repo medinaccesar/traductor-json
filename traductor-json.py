@@ -1,4 +1,3 @@
-import os
 from service.fichero_service import Fichero
 from service.traductor_service import Traductor
 from service.motores.google_translate import TraductorGoogle
@@ -9,7 +8,7 @@ from utils.espannol_string_argparse import *
 import argparse
 from utils.locale_manager import _,p
 from dotenv import load_dotenv
-from constantes import Configuracion as conf
+from constantes import Configuracion as Conf
 
 class Principal:
 
@@ -22,16 +21,19 @@ class Principal:
     def _get_parser() -> argparse.ArgumentParser:
 
         parser = argparse.ArgumentParser(
-            description=conf.NOMBRE_AP+" "+str(conf.VERSION))  # formatter_class=CustomHelpFormatter
+            description=Conf.NOMBRE_AP + " " + str(Conf.VERSION))  # formatter_class=CustomHelpFormatter
         group = parser.add_mutually_exclusive_group()
         group.add_argument('-t', '--traducir', nargs=4,
                            metavar=(_('ARCHIVO'), _('ARCHIVO_TRADUCIDO'), _('IDIOMA_ORIGEN'),_('IDIOMA_DESTINO')), help=_('Traduce el archivo al idioma especificado'))
         group.add_argument(
             '-m', '--motor', action='store_true', help=_('Selecciona el motor de traducción por defecto'))
+
+        group.add_argument('-p', '--pausa', type=str,
+                           metavar=(_('PAUSA')), help=_('Ajusta la pausa entre peticiones'))
         group.add_argument(
             '-i', '--info', action='store_true', help=_('Muestra información con las opciones establecidas'))
         parser.add_argument('--version', action='version', version='%(prog)s ' +
-                            conf.VERSION, help=_('Muestra la versión del programa'))
+                                                                   Conf.VERSION, help=_('Muestra la versión del programa'))
 
         return parser
 
@@ -39,25 +41,32 @@ class Principal:
     def _crear_traductor() -> Traductor:
        
         load_dotenv() 
-        motor =  os.getenv('MOTOR', conf.MOTORES.get(conf.MOTOR_DEFECTO))
+        motor =  os.getenv('MOTOR', Conf.MOTORES.get(Conf.MOTOR_DEFECTO))
+        pausa =  os.getenv('PAUSA', 0)
 
         traductores = {
-            conf.MOTORES.get('google'): lambda: TraductorGoogle(),
-            conf.MOTORES.get('deepl'): lambda: TraductorDeepl(),
-            conf.MOTORES.get('libre'): lambda: TraductorLibret()
+            Conf.MOTORES.get('google')['nombre']: lambda: TraductorGoogle(),
+            Conf.MOTORES.get('deepl')['nombre']: lambda: TraductorDeepl(),
+            Conf.MOTORES.get('libre')['nombre']: lambda: TraductorLibret()
         }
 
-        return traductores.get(motor, lambda: TraductorGoogle())()
+        traductor = traductores.get(motor, lambda: TraductorGoogle())()
+        traductor.set_pausa(pausa)
+        return traductor
     
     def _establecer_motor_traduccion(self):
         
         motor = input('\n'+
-            _('Elija el motor de traducción (Google/DeepL/libre) o (g/d/l)')+':')        
-
-        motor = conf.MOTORES.get(motor.lower(), conf.MOTORES.get(conf.MOTOR_DEFECTO))        
+            _('Elija el motor de traducción (Google/DeepL/libre) o (g/d/l)')+':')
+        motor = Conf.MOTORES.get(motor.lower(), Conf.MOTORES.get(Conf.MOTOR_DEFECTO))
         self._fichero.establecer_motor_traduccion_defecto(motor)    
         return motor
-        
+    def _establecer_pausa(self, pausa):
+         try:
+            pausa = float(pausa)
+         except ValueError:
+            pausa = 0
+         self._fichero.establecer_pausa(pausa)    
     def _procesar_argumentos(self):
             parser = self._get_parser()
             args = parser.parse_args()
@@ -66,6 +75,9 @@ class Principal:
                 motor = self._establecer_motor_traduccion() 
                 print(_('El motor de traducción por defecto es')+': ', motor, '\n')
                
+            elif args.pausa is not None:
+                self._establecer_pausa(args.pausa)
+                print(_('La pausa se ha establecido correctamente.'),'\n') 
             elif args.info is not None and args.info is not False:               
                 self._mostrar_info()
             
@@ -85,8 +97,8 @@ class Principal:
         load_dotenv()      
         print(_('Opciones establecidas')+':')              
         print(_('Idioma de la aplicación')+':', os.getenv('IDIOMA'))
-        print(_('Motor de traducción')+':',os.getenv('MOTOR'),'\n')     
+        print(_('Motor de traducción')+':',os.getenv('MOTOR'),'\n') 
+        print(_('Pausa')+':',os.getenv('PAUSA'),'\n')     
 
 if __name__ == "__main__":
-    
     Principal()
