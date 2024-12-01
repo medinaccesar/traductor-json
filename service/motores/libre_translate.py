@@ -3,18 +3,24 @@ import requests
 from constantes import Configuracion as conf
 from service.traductor_service import Traductor
 
+
 class TraductorLibret(Traductor):
 
     def __init__(self):
         super().__init__()
-        self._motor = conf.MOTORES.get('libre')
-        self._ALTERNATIVES = 0  # leer de .env
-        self._API_KEY = '' # leer de .env
+        self._motor = conf.MOTORES.get('libre')['nombre']
+        # TODO: leer de .env
+        #  Motor sin API_KEY pero que acepta 5 pet./min, pausa = 12 segundos
+        # "https://trans.zillyhuhn.com/translate"
+        self._url = 'https://libretranslate.com/translate'  # Necesita API_KEY
+        self._ALTERNATIVES = 0
+        self._API_KEY = ''
 
 
     def traducir_texto(self, texto, source_lang, target_lang):   
-          
-        url = "https://libretranslate.com/translate"
+
+
+        url = self._url  
         params = {
             "api_key": self._API_KEY,
             "q": texto,

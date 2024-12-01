@@ -1,11 +1,14 @@
 from abc import ABCMeta, abstractmethod
 import json
+import time
 
 class Traductor(metaclass=ABCMeta):
 
     def __init__(self):            
         self._motor = ''
-   
+        self._pausa = 0
+        self._url = ''
+
     @abstractmethod
     def traducir_texto(self,texto, source_lang, target_lang):
         pass
@@ -39,11 +42,29 @@ class Traductor(metaclass=ABCMeta):
         for clave, valor in estructura.items():
             if isinstance(valor, str):
                 estructura_traducida[clave] = self.traducir_texto(valor,source_lang, target_lang)
+                self.pausar()
             elif isinstance(valor, dict):
                 estructura_traducida[clave] = self.procesar_estructura_anidada(valor,source_lang,target_lang)
             elif isinstance(valor, list):
-                estructura_traducida[clave] = [self.traducir_texto(item,source_lang,target_lang) for item in valor]
+                estructura_traducida[clave] = []
+                for item in valor:
+                    valor_traducido = self.traducir_texto(item, source_lang, target_lang)
+                    estructura_traducida[clave].append(valor_traducido)
+                    self.pausar()
         return estructura_traducida  
     
     def get_motor(self):
         return self._motor
+
+    def set_pausa(self, pausa):
+        try:
+            self._pausa = float(pausa)
+        except ValueError:
+            self._pausa = 0
+
+    def pausar(self):
+        if self._pausa > 0:
+            time.sleep(self._pausa)
+
+    def set_url(self, url):
+        self._url = url
